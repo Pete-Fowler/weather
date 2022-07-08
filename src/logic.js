@@ -15,26 +15,14 @@ const getLatLon = async (search) => {
   return coordinates;
 }
 
-// switch to NWS
 const getWeather = async (coordinates) => {
   const response = await fetch(`https://api.weather.gov/points/${coordinates[0]},${coordinates[1]}`, { mode: 'cors'});
   const data = await response.json();
-  // console.log(data);
   const stations = await fetch(data.properties.observationStations);
   const stationsData = await stations.json();
-  const observations = await fetch(`${stationsData.observationStations[0]}/observations/latest`);
+  const observations = await fetch(`${stationsData.observationStations[1]}/observations/latest`);
   const observationsData = await observations.json();
-  console.log(observationsData);
-
-
-  // const station = data.properties.cwa;
-  // const observations = await fetch (`https://api.weather.gov/stations/${station}/observations/latest`, { mode: 'cors' });
-  // const obsData = await observations.json();
-  // console.log(obsData);
-  // processWeather(data);
-
-  // /stations/{stationId}/observations/latest
-
+  processWeather(observationsData);
 }
 
 const getForecast = async (coordinates) => {
@@ -45,11 +33,8 @@ const getForecast = async (coordinates) => {
     processForecast(forecastJSON);
 }
 
+// /zones/forecast/{zoneId}/observations
 
-// Code shows how to use getLatLon()
-// let a = getLatLon('Denver, CO').then(data => getForecast(data));
-// console.log(a);
-
-// code for testing
-getWeather([39.684765, -105.129866]);
-// getForecast([39.684765, -105.129866]);
+// Example calls work
+// getLatLon('Denver, CO').then(data => getForecast(data));
+getLatLon('Denver, CO').then(data => getWeather(data));
