@@ -1,7 +1,10 @@
+import location from './dom';
+
 const weather = {};
 
 const processForecast = (object) => {
-  console.log(object);
+  weather.forecast = object.properties.periods;
+  console.log(weather);
 };
 
 const processWeather = (object) => {
@@ -12,6 +15,7 @@ const processWeather = (object) => {
     time: object.properties.timestamp,
     wind: object.properties.windSpeed.value,
   };
+  console.log(weather);
 };
 
 const getLatLon = async (search) => {
@@ -54,5 +58,6 @@ const getForecast = async (coordinates) => {
 
 // Example calls work
 // getLatLon('Denver, CO').then(data => getForecast(data));
-getLatLon("Denver, CO").then((data) => getWeather(data));
+// getLatLon("Denver, CO").then((data) => getWeather(data));
 
+export {getLatLon, getForecast, getWeather}
