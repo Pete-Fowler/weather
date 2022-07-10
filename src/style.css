@@ -70,6 +70,16 @@ body {
 
 #current {
   grid-area: current;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#current-box {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #forecast {

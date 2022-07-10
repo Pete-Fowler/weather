@@ -17,6 +17,7 @@ const processWeather = (object) => {
 };
 
 const getLatLon = async (search) => {
+  weather.location = search;
   const response = await fetch(
     `http://dev.virtualearth.net/REST/v1/Locations?query=${search}&key=AiOvouOlhdmW8YH-PSBnwW4MHdU654a580GdTnm2UJjFLjFFNaVGWndcsoZIC1r8`,
     { mode: "cors" }
@@ -35,7 +36,7 @@ const getWeather = async (coordinates) => {
   const stations = await fetch(data.properties.observationStations);
   const stationsData = await stations.json();
   const observations = await fetch(
-    `${stationsData.observationStations[1]}/observations/latest`
+    `${stationsData.observationStations[0]}/observations/latest`
   );
   const observationsData = await observations.json();
   processWeather(observationsData);
