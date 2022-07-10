@@ -21,8 +21,8 @@ const displayWeather = () => {
   // name.textContent = weather.location;
   displayValue(name, weather.location);
   displayValue(description, weather.current.description);
-  displayValue(temp, `${weather.current.temp} C`)
-  displayValue(wind, `${weather.current.wind} km/h`);
+  displayValue(temp, `${Math.round((weather.current.temp * 9 / 5 + 32) * 10) / 10} F`)
+  displayValue(wind, `${Math.round((weather.current.wind * 0.62137) * 10) / 10} mph`);
   displayValue(humidity, `${Math.round(weather.current.humidity)} % humidity`);
 
 }
