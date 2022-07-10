@@ -7,6 +7,22 @@
   <title>Weather</title>
 <script defer src="main.js"></script></head>
 <body>
-  
+  <div id="header">Weather</div>
+  <div id="input">
+    <form action="" id="form">
+      <input type="text" id='location' placeholder="Enter location">
+      <button type="submit" id="submit">Submit</button>
+    </form>
+  </div>
+  <div id="current">
+    <div id="current-box">
+      <div id="name">Denver</div>
+      <div id="description" class="current-data">Mostly cloudy</div>
+      <div id="temp" class="current-data">32&#176 C</div>
+      <div id="wind" class="current-data">7 km/h winds</div>
+      <div id="humidity" class="current-data">5 % humidity</div>
+    </div>
+  </div>
+  <div id="forecast"></div>
 </body>
 </html>
