@@ -20,10 +20,10 @@ const displayWeather = () => {
 
   // name.textContent = weather.location;
   displayValue(name, weather.location);
-  description.textContent = weather.current.description;
-  temp.textContent = `${weather.current.temp}&#176 C`;
-  wind.textContent = `${weather.current.wind} km/h`;
-  humidity.textContent = `${weather.current.humidity} %`
+  displayValue(description, weather.current.description);
+  displayValue(temp, `${weather.current.temp} C`)
+  displayValue(wind, `${weather.current.wind} km/h`);
+  displayValue(humidity, `${Math.round(weather.current.humidity)} % humidity`);
 
 }
 
@@ -32,12 +32,11 @@ const submit = (evt) => {
   evt.preventDefault();
   const input = document.querySelector('#location');
   const query = input.value;
-
-  // getLatLon(query).then((data) => {
-  //   getForecast(data);
-  //   getWeather(data);
-  // });
-
+  getLatLon(query).then((data) => {
+    getForecast(data);
+    getWeather(data)
+    .then((promise) => displayWeather(promise));
+  });
 }
 
 // Submit button event listener
