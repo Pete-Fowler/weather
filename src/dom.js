@@ -35,7 +35,7 @@ const submit = (evt) => {
   getLatLon(query).then((data) => {
     getForecast(data);
     getWeather(data)
-    .then((promise) => displayWeather(promise));
+    .then(() => displayWeather());
   });
 }
 
