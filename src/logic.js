@@ -1,5 +1,3 @@
-import location from './dom';
-
 const weather = {};
 
 const processForecast = (object) => {
@@ -60,4 +58,4 @@ const getForecast = async (coordinates) => {
 // getLatLon('Denver, CO').then(data => getForecast(data));
 // getLatLon("Denver, CO").then((data) => getWeather(data));
 
-export {getLatLon, getForecast, getWeather}
+export {weather, getLatLon, getForecast, getWeather}

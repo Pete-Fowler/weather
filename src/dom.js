@@ -1,4 +1,4 @@
-import { getLatLon, getForecast, getWeather } from "./logic";
+import { weather, getLatLon, getForecast, getWeather } from "./logic";
 
 const submit = (evt) => {
   evt.preventDefault();
@@ -8,8 +8,9 @@ const submit = (evt) => {
     getForecast(data);
     getWeather(data);
   });
-  // getLatLon(query).then((data) => getWeather(data));
 }
+
+
 
 const listen = (() => {
   const form = document.querySelector('#form');

@@ -1,0 +1,77 @@
+@font-face {
+  font-family: baloo;
+  src: url('./assets/Baloo2-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: oswald;
+  src: url('./assets/Oswald-VariableFont_wght.ttf');
+}
+
+body {
+  font-family: oswald;
+  display: grid;
+  grid:
+    "header   header"   1fr
+    "search   search"   1fr
+    "current  current"  4fr
+    "forecast forecast" 4fr   
+    /      1fr;
+  color: orange;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+
+#header {
+  font-size: 5rem;
+  font-family: baloo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: orange;
+  grid-area: header;
+  min-height: 0;
+}
+#input {
+  appearance: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: search;
+}
+
+#form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#location {
+  font-family: inherit;
+  font-size: 1.5rem;
+  background-color: white;
+  border-radius: 10px 10px;
+  text-align: center;
+}
+
+#submit {
+  font-family: inherit;
+  color: orange;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 200px;
+  background-color: black;
+  border-radius: 10px 10px;
+  display: block;
+}
+
+#current {
+  grid-area: current;
+}
+
+#forecast {
+  grid-area: forecast;
+}
