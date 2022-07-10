@@ -2,7 +2,7 @@ const weather = {};
 
 const processForecast = (object) => {
   weather.forecast = object.properties.periods;
-  console.log(weather);
+  console.log(weather.forecast);
 };
 
 const processWeather = (object) => {
@@ -13,7 +13,6 @@ const processWeather = (object) => {
     time: object.properties.timestamp,
     wind: object.properties.windSpeed.value,
   };
-  console.log(weather);
 };
 
 const getLatLon = async (search) => {

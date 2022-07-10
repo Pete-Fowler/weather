@@ -1,15 +1,37 @@
 import { weather, getLatLon, getForecast, getWeather } from "./logic";
 
+// Helper function 
 const displayValue = (element, value) => {
   const el = element;
-  if (value === 'Null') {
+  if (value == null) {
     el.textContent = 'Data unavailable';
   } else {
   el.textContent = value;
   }
 }
 
-// Displays current weather
+// Adds forecast data to DOM, called inside displayWeather()
+const displayForecast = () => {
+  const forecastBox = document.querySelector('#forecast-box');
+  
+  weather.forecast.forEach((obj) => {
+    const period = document.createElement('div');
+    period.className = 'period';
+
+    const name = document.createElement('div');
+    name.className = 'name'
+    name.textContent = obj.name;
+    period.appendChild(name);
+
+    const detailed = document.createElement('div');
+    detailed.textContent = obj.detailedForecast
+    period.appendChild(detailed);
+    
+    forecastBox.appendChild(period);
+  });
+}
+
+// Adds current weather data to DOM
 const displayWeather = () => {
   // Cache DOM elements
   const name = document.querySelector('#name');
@@ -18,13 +40,14 @@ const displayWeather = () => {
   const wind = document.querySelector('#wind');
   const humidity = document.querySelector('#humidity');
 
-  // name.textContent = weather.location;
+  // Change text content of DOM elements to display current weather values
   displayValue(name, weather.location);
   displayValue(description, weather.current.description);
   displayValue(temp, `${Math.round((weather.current.temp * 9 / 5 + 32) * 10) / 10} F`)
   displayValue(wind, `${Math.round((weather.current.wind * 0.62137) * 10) / 10} mph`);
   displayValue(humidity, `${Math.round(weather.current.humidity)} % humidity`);
 
+  displayForecast();
 }
 
 // Handle click to search for weather

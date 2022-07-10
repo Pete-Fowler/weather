@@ -59,7 +59,7 @@ body {
 
 #submit {
   font-family: inherit;
-  color: orange;
+  color: white;
   font-size: 1.5rem;
   width: 100%;
   max-width: 200px;
@@ -83,5 +83,28 @@ body {
 }
 
 #forecast {
+  display: flex;
   grid-area: forecast;
+  justify-content: center;
+}
+
+#forecast-box {
+  display: flex;
+  width: 100%;
+  max-width: 80%;
+  justify-content: center;
+}
+
+.period {
+  color: white;
+  width: 100%;
+  max-width: 150px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.name {
+  color: orange;
+  font-weight: 700;
 }

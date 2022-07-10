@@ -1,3 +1,3 @@
 import './style.css';
-import * as dom from './dom';
+import * as DOM from './DOM';
 import * as logic from './logic';
