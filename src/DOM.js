@@ -13,31 +13,56 @@ const displayValue = (element, value) => {
 // Adds forecast data to DOM, called inside displayWeather()
 const displayForecast = () => {
   const forecastBox = document.querySelector('#forecast-box');
-  
+  forecastBox.textContent = '';
+
   weather.forecast.forEach((val, index, array) => {
     const period = document.createElement('div');
     period.className = 'period';
 
-    if(array[index][0] === undefined) {     // If true, val is an object and not an array
-      const name = document.createElement('div');
-      name.className = 'name'
+    // If true, val is an object and not an array, so it is a period and not day/night pair
+    if(array[index][0] === undefined) {     
+      const name = document.createElement('div');     
+      name.className = 'name';
       name.textContent = val.name;
       period.appendChild(name);
 
       const detailed = document.createElement('div');
-      detailed.textContent = val.detailedForecast
+      detailed.className = 'forecast';
+      detailed.textContent = val.detailedForecast;
       period.appendChild(detailed);
 
-      forecastBox.appendChild(period);
+    // Handles arrays of day/night pairs
+    } else {                                      
+      const day = document.createElement('div');
+      day.className = 'day';
+      const night = document.createElement('div');
+      night.className = 'night';
+      
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.textContent = val[0].name;
+      day.appendChild(name);
 
-      // Add some code so that if it is day, put the next i underneath in the same period
-      if (val.isDaytime === true) {
-        const nightName = document.createElement('div');
-        nightName.className = 'name';
-        nightName.textContent = array[index + 1].name;
-        period.appendChild(nightName);
-      }
+      const detailed = document.createElement('div');
+      detailed.className = 'forecast';
+      detailed.textContent = val[0].shortForecast;
+      day.appendChild(detailed);
+
+      period.appendChild(day);
+
+      const nightName = document.createElement('div');
+      nightName.className = 'name';
+      nightName.textContent = val[1].name;
+      night.appendChild(nightName);
+
+      const nightDescription = document.createElement('div');
+      nightDescription.className = 'forecast';
+      nightDescription.textContent = val[1].shortForecast;
+      night.appendChild(nightDescription);
+
+      period.appendChild(night);
     }
+    forecastBox.appendChild(period);
   });
 }
 
