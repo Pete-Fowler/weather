@@ -52,26 +52,46 @@ const displayForecast = () => {
     }
     forecastBox.appendChild(period);
   });
+  forecastBox.classList.remove('fade');
 }
 
 // Helper function used in displayWeather()
 const displayValue = (element, value) => {
+  const currentBox = document.querySelector('#current-box');
   const el = element;
   if (value === null) {
-    el.textContent = 'Data unavailable';
-  } else {
+    return;
+  }
+  currentBox.appendChild(el);
   el.textContent = value;
   }
-}
 
 // Adds current weather data to DOM
 const displayWeather = () => {
-  // Cache DOM elements
-  const name = document.querySelector('#name');
-  const description = document.querySelector('#description');
-  const temp = document.querySelector('#temp');
-  const wind = document.querySelector('#wind');
-  const humidity = document.querySelector('#humidity');
+  // Create DOM elements
+  const current = document.querySelector('#current');
+  current.textContent = '';
+  
+  const currentBox = document.createElement('div');
+  currentBox.className = 'fade';
+  currentBox.id = 'current-box';
+  current.appendChild(currentBox);
+  
+  const name = document.createElement('div');
+  name.id = 'name';
+  name.className = 'current-data'
+  const description = document.createElement('div');
+  description.id = 'description';
+  description.className = 'current-data'
+  const temp = document.createElement('div');
+  temp.id = 'temp';
+  temp.className = 'current-data';
+  const wind = document.createElement('div');
+  wind.id = 'wind';
+  wind.className = 'current-data';
+  const humidity = document.createElement('div');
+  humidity.id = 'humidity';
+  humidity.className = 'current-data';
 
   // Change text content of DOM elements to display current weather values
   displayValue(name, `Current conditions in ${weather.location}`);
@@ -79,8 +99,7 @@ const displayWeather = () => {
   displayValue(temp, `${Math.round((weather.current.temp * 9 / 5 + 32) * 10) / 10} F`)
   displayValue(wind, `${Math.round((weather.current.wind * 0.62137) * 10) / 10} mph`);
   displayValue(humidity, `${Math.round(weather.current.humidity)} % humidity`);
-
-  displayForecast();
+  currentBox.classList.remove('fade');
 }
 
 // Handle click to search for weather
@@ -89,9 +108,10 @@ const submit = (evt) => {
   const input = document.querySelector('#location');
   const query = input.value;
   getLatLon(query).then((data) => {
-    getForecast(data);
+    getForecast(data)
+    .then(() => displayForecast());
     getWeather(data)
-    .then(() => displayWeather());
+    .then(() => displayWeather()); 
   });
 }
 
