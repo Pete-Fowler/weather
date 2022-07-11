@@ -91,11 +91,6 @@ body {
   transition: .7s;
 }
 
-.fade {
-  opacity: 0;
-
-}
-
 #name {
   color: orange;
   padding: 0px;

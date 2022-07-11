@@ -52,7 +52,6 @@ const displayForecast = () => {
     }
     forecastBox.appendChild(period);
   });
-  forecastBox.classList.remove('fade');
 }
 
 // Helper function used in displayWeather()
@@ -73,7 +72,6 @@ const displayWeather = () => {
   current.textContent = '';
   
   const currentBox = document.createElement('div');
-  currentBox.className = 'fade';
   currentBox.id = 'current-box';
   current.appendChild(currentBox);
   
@@ -99,7 +97,6 @@ const displayWeather = () => {
   displayValue(temp, `${Math.round((weather.current.temp * 9 / 5 + 32) * 10) / 10} F`)
   displayValue(wind, `${Math.round((weather.current.wind * 0.62137) * 10) / 10} mph`);
   displayValue(humidity, `${Math.round(weather.current.humidity)} % humidity`);
-  currentBox.classList.remove('fade');
 }
 
 // Handle click to search for weather
