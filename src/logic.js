@@ -13,12 +13,7 @@ const processForecast = (object) => {
       return obj;
     }
   });
-  
   weather.forecast = mapped.filter((obj) => obj !== undefined);
-  
-  // console.log(filtered);
-
-
   console.log(weather.forecast);
 };
 

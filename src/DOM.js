@@ -14,28 +14,30 @@ const displayValue = (element, value) => {
 const displayForecast = () => {
   const forecastBox = document.querySelector('#forecast-box');
   
-  weather.forecast.forEach((obj, index, array) => {
+  weather.forecast.forEach((val, index, array) => {
     const period = document.createElement('div');
     period.className = 'period';
 
-    const name = document.createElement('div');
-    name.className = 'name'
-    name.textContent = obj.name;
-    period.appendChild(name);
+    if(array[index][0] === undefined) {     // If true, val is an object and not an array
+      const name = document.createElement('div');
+      name.className = 'name'
+      name.textContent = val.name;
+      period.appendChild(name);
 
-    const detailed = document.createElement('div');
-    detailed.textContent = obj.detailedForecast
-    period.appendChild(detailed);
- 
-    // Add some code so that if it is day, put the next i underneath in the same period
-    if (obj.isDaytime === true) {
-      const nightName = document.createElement('div');
-      nightName.className = 'name';
-      nightName.textContent = array[index + 1].name;
-      period.appendChild(nightName);
+      const detailed = document.createElement('div');
+      detailed.textContent = val.detailedForecast
+      period.appendChild(detailed);
+
+      forecastBox.appendChild(period);
+
+      // Add some code so that if it is day, put the next i underneath in the same period
+      if (val.isDaytime === true) {
+        const nightName = document.createElement('div');
+        nightName.className = 'name';
+        nightName.textContent = array[index + 1].name;
+        period.appendChild(nightName);
+      }
     }
-
-    forecastBox.appendChild(period);
   });
 }
 
