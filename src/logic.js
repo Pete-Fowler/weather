@@ -1,7 +1,24 @@
 const weather = {};
 
 const processForecast = (object) => {
-  weather.forecast = object.properties.periods;
+  let arr = object.properties.periods;
+  let mapped = arr.map((obj, index, array) => {
+    if(index === 0) {
+      return obj;
+    }
+    if (obj.isDaytime === true && index < array.length - 1) {
+    return [obj, array[index + 1]]
+    } 
+    if (obj.isDaytime === true) {
+      return obj;
+    }
+  });
+  
+  weather.forecast = mapped.filter((obj) => obj !== undefined);
+  
+  // console.log(filtered);
+
+
   console.log(weather.forecast);
 };
 

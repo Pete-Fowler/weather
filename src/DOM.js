@@ -14,7 +14,7 @@ const displayValue = (element, value) => {
 const displayForecast = () => {
   const forecastBox = document.querySelector('#forecast-box');
   
-  weather.forecast.forEach((obj) => {
+  weather.forecast.forEach((obj, index, array) => {
     const period = document.createElement('div');
     period.className = 'period';
 
@@ -26,7 +26,15 @@ const displayForecast = () => {
     const detailed = document.createElement('div');
     detailed.textContent = obj.detailedForecast
     period.appendChild(detailed);
-    
+ 
+    // Add some code so that if it is day, put the next i underneath in the same period
+    if (obj.isDaytime === true) {
+      const nightName = document.createElement('div');
+      nightName.className = 'name';
+      nightName.textContent = array[index + 1].name;
+      period.appendChild(nightName);
+    }
+
     forecastBox.appendChild(period);
   });
 }
