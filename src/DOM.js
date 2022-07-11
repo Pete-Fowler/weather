@@ -1,14 +1,6 @@
 import { weather, getLatLon, getForecast, getWeather } from "./logic";
 
-// Helper function 
-const displayValue = (element, value) => {
-  const el = element;
-  if (value == null) {
-    el.textContent = 'Data unavailable';
-  } else {
-  el.textContent = value;
-  }
-}
+
 
 // Adds forecast data to DOM, called inside displayWeather()
 const displayForecast = () => {
@@ -62,6 +54,16 @@ const displayForecast = () => {
   });
 }
 
+// Helper function used in displayWeather()
+const displayValue = (element, value) => {
+  const el = element;
+  if (value === null) {
+    el.textContent = 'Data unavailable';
+  } else {
+  el.textContent = value;
+  }
+}
+
 // Adds current weather data to DOM
 const displayWeather = () => {
   // Cache DOM elements
@@ -72,7 +74,7 @@ const displayWeather = () => {
   const humidity = document.querySelector('#humidity');
 
   // Change text content of DOM elements to display current weather values
-  displayValue(name, weather.location);
+  displayValue(name, `Current conditions in ${weather.location}`);
   displayValue(description, weather.current.description);
   displayValue(temp, `${Math.round((weather.current.temp * 9 / 5 + 32) * 10) / 10} F`)
   displayValue(wind, `${Math.round((weather.current.wind * 0.62137) * 10) / 10} mph`);

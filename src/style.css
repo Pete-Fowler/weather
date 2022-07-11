@@ -90,6 +90,15 @@ body {
   box-shadow: 2px 2px 10px 2px rgba(255, 255, 255, .8);
 }
 
+#name {
+  font-weight: 900;
+}
+
+.current-data {
+  color: black;
+  padding-left: 40px;
+}
+
 #forecast {
   display: flex;
   grid-area: forecast;
