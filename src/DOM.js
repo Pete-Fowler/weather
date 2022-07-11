@@ -26,41 +26,37 @@ const displayForecast = () => {
       name.textContent = val.name;
       period.appendChild(name);
 
-      const detailed = document.createElement('div');
-      detailed.className = 'forecast';
-      detailed.textContent = val.detailedForecast;
-      period.appendChild(detailed);
+      const forecast = document.createElement('div');
+      forecast.className = 'forecast';
+      forecast.textContent = val.detailedForecast;
+      period.appendChild(forecast);
 
     // Handles arrays of day/night pairs
-    } else {                                      
-      const day = document.createElement('div');
-      day.className = 'day';
-      const night = document.createElement('div');
-      night.className = 'night';
-      
+    } else {                                            
       const name = document.createElement('div');
       name.className = 'name';
       name.textContent = val[0].name;
-      day.appendChild(name);
+      period.appendChild(name);
 
-      const detailed = document.createElement('div');
-      detailed.className = 'forecast';
-      detailed.textContent = val[0].shortForecast;
-      day.appendChild(detailed);
+      const high = document.createElement('div');
+      high.className = 'high';
+      high.textContent = `High ${val[0].temperature} F`;
+      period.appendChild(high);
 
-      period.appendChild(day);
+      const low = document.createElement('div');
+      low.className = 'low';
+      low.textContent = `Low ${val[1].temperature} F`;
+      period.appendChild(low);
 
-      const nightName = document.createElement('div');
-      nightName.className = 'name';
-      nightName.textContent = val[1].name;
-      night.appendChild(nightName);
+      const wind = document.createElement('div');
+      wind.className = 'wind';
+      wind.textContent = `${val[0].windSpeed} winds`;
+      period.appendChild(wind);
 
-      const nightDescription = document.createElement('div');
-      nightDescription.className = 'forecast';
-      nightDescription.textContent = val[1].shortForecast;
-      night.appendChild(nightDescription);
-
-      period.appendChild(night);
+      const forecast = document.createElement('div');
+      forecast.className = 'forecast';
+      forecast.textContent = val[0].shortForecast;
+      period.appendChild(forecast);
     }
     forecastBox.appendChild(period);
   });

@@ -2,7 +2,6 @@ const weather = {};
 
 const processForecast = (object) => {
   let arr = object.properties.periods;
-  console.log(arr);
   let mapped = arr.map((obj, index, array) => {
     if(index === 0 && obj.isDaytime === false) {
       return obj;
