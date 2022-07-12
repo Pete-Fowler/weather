@@ -24,6 +24,7 @@ const displayForecast = () => {
   weather.forecast.array.forEach((val, index, array) =>{
     const period = document.createElement('div');
     period.className = 'period';
+    
     // Add day and time of forecast 
     const time = document.createElement('div');
     time.id = 'time';
@@ -32,11 +33,39 @@ const displayForecast = () => {
     time.textContent = getDayTime(date);
     period.appendChild(time);
     
-
     // Description
+    const description = document.createElement('div');
+    description.id = 'f-description';
+    description.className = 'forecast-data';
+    description.textContent = val.weather[0].description;
+    period.appendChild(description);
+
     // Temp
-    // POP
+    const temp = document.createElement('div');
+    temp.id = 'f-temp';
+    temp.className = 'forecast-data';
+    temp.textContent = `${val.main.temp} F`;
+    period.appendChild(temp);
+
+    // Cloud cover
+    const clouds = document.createElement('div');
+    clouds.id = 'f-clouds';
+    clouds.className = 'forecast-data';
+    clouds.textContent = `${val.clouds.all}% cloud cover`;
+    period.appendChild(clouds);
+
+    // Probability of precipitation (POP)
+    const pop = document.createElement('div');
+    pop.id = 'f-pop';
+    pop.className = 'forecast-data';
+    pop.textContent = `${Math.round((val.pop * 100) * 10) / 10}% chance precip.`;
+    period.appendChild(pop);
+
     // Wind
+    const wind = document.createElement('div');
+    wind.id = 'f-wind';
+    wind.className = 'forecast-data';
+    wind.textContent = `${val.wind.speed}mph winds`;
     forecastBox.appendChild(period);
   });
   }
