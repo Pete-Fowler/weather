@@ -14,7 +14,6 @@ const processForecast = (object) => {
     }
   });
   weather.forecast = mapped.filter((obj) => obj !== undefined);
-  console.log(weather.forecast);
 };
 
 const processWeather = (object) => {
@@ -25,6 +24,7 @@ const processWeather = (object) => {
     time: object.properties.timestamp,
     wind: object.properties.windSpeed.value,
   };
+  console.log(weather.current);
 };
 
 const getLatLon = async (search) => {
