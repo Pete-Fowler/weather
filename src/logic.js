@@ -30,37 +30,33 @@ const processWeather = (object) => {
 const getLatLon = async (search) => {
   weather.location = search;
   const response = await fetch(
-    `http://dev.virtualearth.net/REST/v1/Locations?query=${search}&key=AiOvouOlhdmW8YH-PSBnwW4MHdU654a580GdTnm2UJjFLjFFNaVGWndcsoZIC1r8`,
+    `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
   const data = await response.json();
-  const { coordinates } = data.resourceSets[0].resources[0].point;
-  return coordinates;
+  const coord = {
+    lat: data[0].lat,
+    lon: data[0].lon,
+  };
+  return coord;
 };
 
-const getWeather = async (coordinates) => {
+const getWeather = async (coord) => {
   const response = await fetch(
-    `https://api.weather.gov/points/${coordinates[0]},${coordinates[1]}`,
+    `https://api.openweathermap.org/data/2.5/weather?lat=${coord.lat}&lon=${coord.lon}&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
   const data = await response.json();
-  const stations = await fetch(data.properties.observationStations);
-  const stationsData = await stations.json();
-  const observations = await fetch(
-    `${stationsData.observationStations[0]}/observations/latest`
-  );
-  const observationsData = await observations.json();
+  console.log(data);
   processWeather(observationsData);
 };
 
-const getForecast = async (coordinates) => {
+const getForecast = async (coord) => {
   const response = await fetch(
-    `https://api.weather.gov/points/${coordinates[0]},${coordinates[1]}`,
+    `api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
-  const data = await response.json();
-  const forecast = await fetch(data.properties.forecast);
-  const forecastJSON = await forecast.json();
+  
   processForecast(forecastJSON);
 };
 
