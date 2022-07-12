@@ -2,8 +2,10 @@ const weather = {};
 
 const processForecast = (obj) => {
   weather.forecast = {
-    
+    array: obj.list,
+    timezone: obj.city.timezone,
   }
+  console.log(weather.forecast);
 };
 
 const processWeather = (obj) => {
@@ -50,8 +52,7 @@ const getForecast = async (coord) => {
     { mode: "cors" }
   );
   const data = await response.json();
-  console.log(data);
-  processForecast(forecastJSON);
+  processForecast(data);
 };
 
 // /zones/forecast/{zoneId}/observations

@@ -1,58 +1,45 @@
 import { weather, getLatLon, getForecast, getWeather } from "./logic";
 
+const getDayTime = (obj) => {
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const day = days[obj.getDay()];
+  let time = obj.getHours();
+  if (time === 0) {
+    return `${day} 12AM`;
+  } 
+  if (time > 12) {
+    time -= 12;
+    time = `${time.toString()}PM`;
+  } else {
+    time = `${time.toString()}AM`;
+  }
+  return `${day} ${time}`;
+}
 
-
-// Adds forecast data to DOM, called inside displayWeather()
+// Adds forecast data to DOM
 const displayForecast = () => {
   const forecastBox = document.querySelector('#forecast-box');
   forecastBox.textContent = '';
 
-  weather.forecast.forEach((val, index, array) => {
+  weather.forecast.array.forEach((val, index, array) =>{
     const period = document.createElement('div');
     period.className = 'period';
+    // Add day and time of forecast 
+    const time = document.createElement('div');
+    time.id = 'time';
+    time.className = 'forecast-data';
+    const date = new Date(val.dt * 1000);
+    time.textContent = getDayTime(date);
+    period.appendChild(time);
+    
 
-    // If true, val is an object and not an array, so it is a period and not day/night pair
-    if(array[index][0] === undefined) {     
-      const name = document.createElement('div');     
-      name.className = 'name';
-      name.textContent = val.name;
-      period.appendChild(name);
-
-      const forecast = document.createElement('div');
-      forecast.className = 'forecast';
-      forecast.textContent = val.detailedForecast;
-      period.appendChild(forecast);
-
-    // Handles arrays of day/night pairs
-    } else {                                            
-      const name = document.createElement('div');
-      name.className = 'name';
-      name.textContent = val[0].name;
-      period.appendChild(name);
-
-      const high = document.createElement('div');
-      high.className = 'high';
-      high.textContent = `High ${val[0].temperature} F`;
-      period.appendChild(high);
-
-      const low = document.createElement('div');
-      low.className = 'low';
-      low.textContent = `Low ${val[1].temperature} F`;
-      period.appendChild(low);
-
-      const wind = document.createElement('div');
-      wind.className = 'wind';
-      wind.textContent = `${val[0].windSpeed} winds`;
-      period.appendChild(wind);
-
-      const forecast = document.createElement('div');
-      forecast.className = 'forecast';
-      forecast.textContent = val[0].shortForecast;
-      period.appendChild(forecast);
-    }
+    // Description
+    // Temp
+    // POP
+    // Wind
     forecastBox.appendChild(period);
   });
-}
+  }
 
 // Helper function used in displayWeather()
 const displayValue = (element, value) => {

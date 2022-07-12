@@ -15,8 +15,11 @@ It was difficult to figure out how to chain together the getLatLon() geocoding f
 coordinates, followed by the getForecast() and getWeather functions, and then asynchronously
 following all that with another function to add the data to the DOM. It ended up looking like this:
 
+Unix time is number of seconds from epoch, whereas the javascript timestamp is number of
+milliseconds, to unix time * 1000 = JS timestamp time.
+
   getLatLon(query).then((data) => {
       getForecast(data);
       getWeather(data)
       .then(() => displayWeather());
-    });
+    }); 
