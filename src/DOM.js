@@ -84,6 +84,9 @@ const displayWeather = () => {
   const temp = document.createElement('div');
   temp.id = 'temp';
   temp.className = 'current-data';
+  const highLow = document.createElement('div');
+  highLow.id = 'high-low';
+  highLow.className = 'current-data';
   const wind = document.createElement('div');
   wind.id = 'wind';
   wind.className = 'current-data';
@@ -94,9 +97,10 @@ const displayWeather = () => {
   // Change text content of DOM elements to display current weather values
   displayValue(name, `Current conditions in ${weather.location}`);
   displayValue(description, weather.current.description);
-  displayValue(temp, `${Math.round((weather.current.temp * 9 / 5 + 32) * 10) / 10} F`)
-  displayValue(wind, `${Math.round((weather.current.wind * 0.62137) * 10) / 10} mph`);
-  displayValue(humidity, `${Math.round(weather.current.humidity)} % humidity`);
+  displayValue(temp, `${weather.current.temp} F`);
+  displayValue(highLow, `${weather.current.tempMax} F High / ${weather.current.tempMin} F Low`);
+  displayValue(wind, `${weather.current.wind} mph wind`);
+  displayValue(humidity, `${weather.current.humidity}% humidity`);
 }
 
 // Handle click to search for weather

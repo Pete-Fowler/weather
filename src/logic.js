@@ -1,30 +1,24 @@
 const weather = {};
 
-const processForecast = (object) => {
-  let arr = object.properties.periods;
-  let mapped = arr.map((obj, index, array) => {
-    if(index === 0 && obj.isDaytime === false) {
-      return obj;
-    }
-    if (obj.isDaytime === true && index < array.length - 1) {
-    return [obj, array[index + 1]]
-    } 
-    if (obj.isDaytime === true) {
-      return obj;
-    }
-  });
-  weather.forecast = mapped.filter((obj) => obj !== undefined);
+const processForecast = (obj) => {
+  weather.forecast = {
+    
+  }
 };
 
-const processWeather = (object) => {
+const processWeather = (obj) => {
   weather.current = {
-    description: object.properties.textDescription,
-    humidity: object.properties.relativeHumidity.value,
-    temp: object.properties.temperature.value,
-    time: object.properties.timestamp,
-    wind: object.properties.windSpeed.value,
+    description: obj.weather[0].description,
+    humidity: obj.main.humidity,
+    pressure: obj.main.pressure,
+    sunrise: obj.sys.sunrise,
+    sunset: obj.sys.sunset,
+    temp: obj.main.temp,
+    tempFeels: obj.main.feels_like,
+    tempMax: obj.main.temp_max,
+    tempMin: obj.main.temp_min,
+    wind: obj.wind.speed,
   };
-  console.log(weather.current);
 };
 
 const getLatLon = async (search) => {
@@ -43,20 +37,20 @@ const getLatLon = async (search) => {
 
 const getWeather = async (coord) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${coord.lat}&lon=${coord.lon}&appid=1d251f3ea86291b4dd946b1949e21ad8`,
+    `https://api.openweathermap.org/data/2.5/weather?lat=${coord.lat}&lon=${coord.lon}&units=imperial&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
   const data = await response.json();
-  console.log(data);
-  processWeather(observationsData);
+  processWeather(data);
 };
 
 const getForecast = async (coord) => {
   const response = await fetch(
-    `api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=1d251f3ea86291b4dd946b1949e21ad8`,
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&units=imperial&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
-  
+  const data = await response.json();
+  console.log(data);
   processForecast(forecastJSON);
 };
 
