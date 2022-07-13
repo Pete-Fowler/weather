@@ -1,19 +1,13 @@
 import { weather, getLatLon, getWeather } from "./logic";
 
-const getTimeLabel = (obj) => {
+const getDateLabel = (obj) => {
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const day = days[obj.getDay()];
-  let time = obj.getHours();
-  if (time === 0) {
-    return `${day} 12AM`;
-  } 
-  if (time > 12) {
-    time -= 12;
-    time = `${time.toString()}PM`;
-  } else {
-    time = `${time.toString()}AM`;
-  }
-  return `${day} ${time}`;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const month = months[obj.getMonth()];
+  const date = obj.getDate();
+
+  return `${day}, ${month} ${date}`;
 }
 
 // Adds forecast data to DOM
@@ -27,10 +21,14 @@ const displayForecast = () => {
     
     // Add day and time of forecast 
     const time = document.createElement('div');
-    time.id = 'time';
+    time.id = 'f-time';
     time.className = 'forecast-data';
+    if (index === 0) {
+      time.textContent = 'Today';
+    } else {
     const date = new Date(obj.dt * 1000);
-    time.textContent = getTimeLabel(date);
+    time.textContent = getDateLabel(date);
+    }
     period.appendChild(time);
     
     // Description
@@ -44,14 +42,14 @@ const displayForecast = () => {
     const high = document.createElement('div');
     high.id = 'f-high';
     high.className = 'forecast-data';
-    high.textContent = `${obj.temp.max} F`;
+    high.textContent = `${obj.temp.max} F high`;
     period.appendChild(high);
 
     // Low temp
     const low = document.createElement('div');
     low.id = 'f-low';
     low.className = 'forecast-data';
-    low.textContent = `${obj.temp.min} F`;
+    low.textContent = `${obj.temp.min} F low`;
     period.appendChild(low);
 
     // Cloud cover
@@ -73,6 +71,8 @@ const displayForecast = () => {
     wind.id = 'f-wind';
     wind.className = 'forecast-data';
     wind.textContent = `${obj.wind_speed}mph winds`;
+    period.appendChild(wind);
+    
     forecastBox.appendChild(period);
   });
   }
@@ -107,9 +107,6 @@ const displayWeather = () => {
   const temp = document.createElement('div');
   temp.id = 'temp';
   temp.className = 'current-data';
-  const highLow = document.createElement('div');
-  highLow.id = 'high-low';
-  highLow.className = 'current-data';
   const wind = document.createElement('div');
   wind.id = 'wind';
   wind.className = 'current-data';
@@ -121,7 +118,6 @@ const displayWeather = () => {
   displayValue(name, `Current conditions in ${weather.location}`);
   displayValue(description, weather.current.description);
   displayValue(temp, `${weather.current.temp} F`);
-  displayValue(highLow, `${weather.forecast[0].temp.max} F High / ${weather.forecast[0].temp.min} F Low`);
   displayValue(wind, `${weather.current.wind} mph wind`);
   displayValue(humidity, `${weather.current.humidity}% humidity`);
 }
