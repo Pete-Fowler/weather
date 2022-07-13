@@ -1,6 +1,6 @@
-import { weather, getLatLon, getForecast, getWeather } from "./logic";
+import { weather, getLatLon, getWeather } from "./logic";
 
-const getDayTime = (obj) => {
+const getTimeLabel = (obj) => {
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const day = days[obj.getDay()];
   let time = obj.getHours();
@@ -21,7 +21,7 @@ const displayForecast = () => {
   const forecastBox = document.querySelector('#forecast-box');
   forecastBox.textContent = '';
 
-  weather.forecast.array.forEach((val, index, array) =>{
+  weather.forecast.forEach((obj, index, array) =>{
     const period = document.createElement('div');
     period.className = 'period';
     
@@ -29,43 +29,50 @@ const displayForecast = () => {
     const time = document.createElement('div');
     time.id = 'time';
     time.className = 'forecast-data';
-    const date = new Date(val.dt * 1000);
-    time.textContent = getDayTime(date);
+    const date = new Date(obj.dt * 1000);
+    time.textContent = getTimeLabel(date);
     period.appendChild(time);
     
     // Description
     const description = document.createElement('div');
     description.id = 'f-description';
     description.className = 'forecast-data';
-    description.textContent = val.weather[0].description;
+    description.textContent = obj.weather[0].description;
     period.appendChild(description);
 
-    // Temp
-    const temp = document.createElement('div');
-    temp.id = 'f-temp';
-    temp.className = 'forecast-data';
-    temp.textContent = `${val.main.temp} F`;
-    period.appendChild(temp);
+    // High temp
+    const high = document.createElement('div');
+    high.id = 'f-high';
+    high.className = 'forecast-data';
+    high.textContent = `${obj.temp.max} F`;
+    period.appendChild(high);
+
+    // Low temp
+    const low = document.createElement('div');
+    low.id = 'f-low';
+    low.className = 'forecast-data';
+    low.textContent = `${obj.temp.min} F`;
+    period.appendChild(low);
 
     // Cloud cover
     const clouds = document.createElement('div');
     clouds.id = 'f-clouds';
     clouds.className = 'forecast-data';
-    clouds.textContent = `${val.clouds.all}% cloud cover`;
+    clouds.textContent = `${obj.clouds}% cloud cover`;
     period.appendChild(clouds);
 
     // Probability of precipitation (POP)
     const pop = document.createElement('div');
     pop.id = 'f-pop';
     pop.className = 'forecast-data';
-    pop.textContent = `${Math.round((val.pop * 100) * 10) / 10}% chance precip.`;
+    pop.textContent = `${Math.round((obj.pop * 100) * 10) / 10}% chance precip.`;
     period.appendChild(pop);
 
     // Wind
     const wind = document.createElement('div');
     wind.id = 'f-wind';
     wind.className = 'forecast-data';
-    wind.textContent = `${val.wind.speed}mph winds`;
+    wind.textContent = `${obj.wind_speed}mph winds`;
     forecastBox.appendChild(period);
   });
   }
@@ -114,7 +121,7 @@ const displayWeather = () => {
   displayValue(name, `Current conditions in ${weather.location}`);
   displayValue(description, weather.current.description);
   displayValue(temp, `${weather.current.temp} F`);
-  displayValue(highLow, `${weather.current.tempMax} F High / ${weather.current.tempMin} F Low`);
+  displayValue(highLow, `${weather.forecast[0].temp.max} F High / ${weather.forecast[0].temp.min} F Low`);
   displayValue(wind, `${weather.current.wind} mph wind`);
   displayValue(humidity, `${weather.current.humidity}% humidity`);
 }
@@ -125,10 +132,9 @@ const submit = (evt) => {
   const input = document.querySelector('#location');
   const query = input.value;
   getLatLon(query).then((data) => {
-    getForecast(data)
-    .then(() => displayForecast());
     getWeather(data)
-    .then(() => displayWeather()); 
+    .then(() => displayWeather())
+    .then(() => displayForecast()); 
   });
 }
 

@@ -1,26 +1,17 @@
 const weather = {};
 
-const processForecast = (obj) => {
-  weather.forecast = {
-    array: obj.list,
-    timezone: obj.city.timezone,
-  }
-  console.log(weather.forecast);
-};
-
 const processWeather = (obj) => {
   weather.current = {
-    description: obj.weather[0].description,
-    humidity: obj.main.humidity,
-    pressure: obj.main.pressure,
-    sunrise: obj.sys.sunrise,
-    sunset: obj.sys.sunset,
-    temp: obj.main.temp,
-    tempFeels: obj.main.feels_like,
-    tempMax: obj.main.temp_max,
-    tempMin: obj.main.temp_min,
-    wind: obj.wind.speed,
+    clouds: obj.current.clouds,
+    description: obj.current.weather[0].description,
+    humidity: obj.current.humidity,
+    icon: obj.current.weather[0].icon,
+    temp: obj.current.temp,
+    wind: obj.current.wind_speed,
   };
+  weather.forecast = obj.daily;
+
+  console.log(weather)
 };
 
 const getLatLon = async (search) => {
@@ -39,20 +30,11 @@ const getLatLon = async (search) => {
 
 const getWeather = async (coord) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${coord.lat}&lon=${coord.lon}&units=imperial&appid=1d251f3ea86291b4dd946b1949e21ad8`,
+    `https://api.openweathermap.org/data/3.0/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=minutely,hourly,alerts&units=imperial&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
   const data = await response.json();
   processWeather(data);
-};
-
-const getForecast = async (coord) => {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&units=imperial&appid=1d251f3ea86291b4dd946b1949e21ad8`,
-    { mode: "cors" }
-  );
-  const data = await response.json();
-  processForecast(data);
 };
 
 // /zones/forecast/{zoneId}/observations
@@ -61,4 +43,4 @@ const getForecast = async (coord) => {
 // getLatLon('Denver, CO').then(data => getForecast(data));
 // getLatLon("Denver, CO").then((data) => getWeather(data));
 
-export {weather, getLatLon, getForecast, getWeather}
+export {weather, getLatLon, getWeather}
