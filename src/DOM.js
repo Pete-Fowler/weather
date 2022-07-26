@@ -1,5 +1,6 @@
 import { weather, getLatLon, getWeather } from "./logic";
 
+//  Helper function to create forecast date label, called in displayForecast
 const getDateLabel = (obj) => {
   const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const day = days[obj.getDay()];
@@ -77,7 +78,7 @@ const displayForecast = () => {
   });
   }
 
-// Helper function used in displayWeather()
+// Helper function used in displayWeather(), appends values to DOM
 const displayValue = (element, value) => {
   const currentBox = document.querySelector('#current-box');
   const el = element;
@@ -101,15 +102,19 @@ const displayWeather = () => {
   const name = document.createElement('div');
   name.id = 'name';
   name.className = 'current-data'
+  
   const description = document.createElement('div');
   description.id = 'description';
   description.className = 'current-data'
+  
   const temp = document.createElement('div');
   temp.id = 'temp';
   temp.className = 'current-data';
+  
   const wind = document.createElement('div');
   wind.id = 'wind';
   wind.className = 'current-data';
+  
   const humidity = document.createElement('div');
   humidity.id = 'humidity';
   humidity.className = 'current-data';

@@ -16,15 +16,16 @@ body {
   font-family: oswald;
   display: grid;
   grid:
-    "header   header"   1fr
-    "search   search"   1fr
-    "current  current"  4fr
-    "forecast forecast" 4fr   
+    "header"   80px
+    "search"   90px
+    "current"  4fr
+    "forecast" 4fr   
     /      1fr;
   color: orange;
   background-color: black;
   width: 100vw;
   height: 100vh;
+  margin: 0;
 }
 
 #header {
@@ -35,8 +36,8 @@ body {
   align-items: center;
   color: orange;
   grid-area: header;
-  min-height: 0;
 }
+
 #input {
   appearance: none;
   text-align: center;
@@ -44,11 +45,11 @@ body {
   justify-content: center;
   align-items: center;
   grid-area: search;
+  height: 100%;
 }
 
 #form {
   display: flex;
-  gap: 10px;
   flex-direction: column;
   align-items: center;
 }
@@ -83,9 +84,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 2rem;
+  max-height: 100%;
+  font-size: 1.4rem;
   background-color: white;
   padding: 15px;
+  margin: 15px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px 2px rgba(255, 255, 255, .8);
   transition: .7s;
@@ -128,17 +131,17 @@ body {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: black;
   background-color: white;
-  width: 200px;
-  height: 240px;
+  width: 175px;
+  height: 210px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px 2px rgba(255, 255, 255, .8);
 }
 
 #f-time {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: orange;
   font-weight: 900;
 }
