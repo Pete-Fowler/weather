@@ -132,21 +132,23 @@ const listen = (() => {
 
 const slider = (() => {
   const input = document.querySelector('#slider-input');
-  // weather.current.temp
 
   input.addEventListener('change', () => {
-
     const currentTemp = document.querySelector('#temp');
     const forecastTemp = document.querySelectorAll('#f-temp');
-    console.log(input.checked);
+
     if(input.checked === true) {
       currentTemp.textContent = `${parseInt((weather.current.temp - 32) * (5/9))} C\xB0`;
+      forecastTemp.forEach((el, i) => {
+        el.textContent = `${parseInt((weather.forecast[i].temp.max - 32) * (5/9))} / 
+        ${parseInt((weather.forecast[i].temp.min - 32) * (5/9))} C\xB0`;
+      });
     } else {
       currentTemp.textContent = `${parseInt((weather.current.temp))} F\xB0`;
+      forecastTemp.forEach((el, i) => {
+        el.textContent = `${parseInt(weather.forecast[i].temp.max)} / 
+        ${parseInt(weather.forecast[i].temp.min)} F\xB0`;
+      });
     }
   });
-
-  
-
 })();
-
