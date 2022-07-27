@@ -17,7 +17,7 @@ const processWeather = (obj) => {
 const getLatLon = async (search) => {
   weather.location = search;
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=1d251f3ea86291b4dd946b1949e21ad8`,
+    `https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=1d251f3ea86291b4dd946b1949e21ad8`,
     { mode: "cors" }
   );
   const data = await response.json();
