@@ -31,34 +31,17 @@ const displayForecast = () => {
     time.textContent = getDateLabel(date);
     }
     period.appendChild(time);
-    
-    // Description
-    const description = document.createElement('div');
-    description.id = 'f-description';
-    description.className = 'forecast-data';
-    description.textContent = obj.weather[0].description;
-    period.appendChild(description);
 
-    // High temp
-    const high = document.createElement('div');
-    high.id = 'f-high';
-    high.className = 'forecast-data';
-    high.textContent = `${obj.temp.max} F high`;
-    period.appendChild(high);
+    // Icon
+    let url = `https://openweathermap.org/img/wn/${obj.weather[0].icon}@4x.png`;
+    period.style.backgroundImage = `url(${url})`;
 
-    // Low temp
-    const low = document.createElement('div');
-    low.id = 'f-low';
-    low.className = 'forecast-data';
-    low.textContent = `${obj.temp.min} F low`;
-    period.appendChild(low);
-
-    // Cloud cover
-    const clouds = document.createElement('div');
-    clouds.id = 'f-clouds';
-    clouds.className = 'forecast-data';
-    clouds.textContent = `${obj.clouds}% cloud cover`;
-    period.appendChild(clouds);
+    // Temp
+    const temp = document.createElement('div');
+    temp.id = 'f-temp';
+    temp.className = 'forecast-data';
+    temp.textContent = `${parseInt(obj.temp.max)} / ${parseInt(obj.temp.min)} F`;
+    period.appendChild(temp);
 
     // Probability of precipitation (POP)
     const pop = document.createElement('div');
@@ -66,13 +49,6 @@ const displayForecast = () => {
     pop.className = 'forecast-data';
     pop.textContent = `${Math.round((obj.pop * 100) * 10) / 10}% chance precip.`;
     period.appendChild(pop);
-
-    // Wind
-    const wind = document.createElement('div');
-    wind.id = 'f-wind';
-    wind.className = 'forecast-data';
-    wind.textContent = `${obj.wind_speed}mph winds`;
-    period.appendChild(wind);
     
     forecastBox.appendChild(period);
   });
