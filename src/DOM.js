@@ -40,7 +40,7 @@ const displayForecast = () => {
     const temp = document.createElement('div');
     temp.id = 'f-temp';
     temp.className = 'forecast-data';
-    temp.textContent = `${parseInt(obj.temp.max)} / ${parseInt(obj.temp.min)} F`;
+    temp.textContent = `${parseInt(obj.temp.max)} / ${parseInt(obj.temp.min)} F\xB0`;
     period.appendChild(temp);
 
     // Probability of precipitation (POP)
@@ -102,11 +102,11 @@ const displayWeather = () => {
   // Change text content of DOM elements to display current weather values
   displayValue(name, `Current conditions in ${nameValue}`);
   displayValue(description, descriptionValue);
-  displayValue(temp, `${weather.current.temp} F`);
+  displayValue(temp, `${weather.current.temp} F\xB0`);
   displayValue(wind, `${parseInt(weather.current.wind)} mph wind`);
   displayValue(humidity, `${weather.current.humidity}% humidity`);
 
-  // Add icon
+  // Add weather icon
   const icon = document.createElement('img');
   icon.src = weather.current.icon;
   current.append(icon);
@@ -128,5 +128,25 @@ const submit = (evt) => {
 const listen = (() => {
   const form = document.querySelector('#form');
   form.addEventListener('submit', submit);
+})();
+
+const slider = (() => {
+  const input = document.querySelector('#slider-input');
+  // weather.current.temp
+
+  input.addEventListener('change', () => {
+
+    const currentTemp = document.querySelector('#temp');
+    const forecastTemp = document.querySelectorAll('#f-temp');
+    console.log(input.checked);
+    if(input.checked === true) {
+      currentTemp.textContent = `${parseInt((weather.current.temp - 32) * (5/9))} C\xB0`;
+    } else {
+      currentTemp.textContent = `${parseInt((weather.current.temp))} F\xB0`;
+    }
+  });
+
+  
+
 })();
 
