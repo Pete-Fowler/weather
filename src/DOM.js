@@ -77,11 +77,15 @@ const displayWeather = () => {
   
   const name = document.createElement('div');
   name.id = 'name';
-  name.className = 'current-data'
+  name.className = 'current-data';
+  const nameValue = weather.location.charAt(0).toUpperCase() + 
+  weather.location.slice(1);
   
   const description = document.createElement('div');
   description.id = 'description';
-  description.className = 'current-data'
+  description.className = 'current-data';
+  const descriptionValue = weather.current.description.charAt(0).toUpperCase() + 
+  weather.current.description.slice(1);
   
   const temp = document.createElement('div');
   temp.id = 'temp';
@@ -96,10 +100,10 @@ const displayWeather = () => {
   humidity.className = 'current-data';
 
   // Change text content of DOM elements to display current weather values
-  displayValue(name, `Current conditions in ${weather.location}`);
-  displayValue(description, weather.current.description);
+  displayValue(name, `Current conditions in ${nameValue}`);
+  displayValue(description, descriptionValue);
   displayValue(temp, `${weather.current.temp} F`);
-  displayValue(wind, `${weather.current.wind} mph wind`);
+  displayValue(wind, `${parseInt(weather.current.wind)} mph wind`);
   displayValue(humidity, `${weather.current.humidity}% humidity`);
 
   // Add icon
