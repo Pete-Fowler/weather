@@ -125,6 +125,11 @@ const displayWeather = () => {
   displayValue(temp, `${weather.current.temp} F`);
   displayValue(wind, `${weather.current.wind} mph wind`);
   displayValue(humidity, `${weather.current.humidity}% humidity`);
+
+  // Add icon
+  const icon = document.createElement('img');
+  icon.src = weather.current.icon;
+  current.append(icon);
 }
 
 // Handle click to search for weather

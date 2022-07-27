@@ -5,8 +5,8 @@ const processWeather = (obj) => {
     clouds: obj.current.clouds,
     description: obj.current.weather[0].description,
     humidity: obj.current.humidity,
-    icon: obj.current.weather[0].icon,
-    temp: obj.current.temp,
+    icon: `https://openweathermap.org/img/wn/${obj.current.weather[0].icon}@4x.png`,
+    temp: parseInt(obj.current.temp),
     wind: obj.current.wind_speed,
   };
   weather.forecast = obj.daily;
