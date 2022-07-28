@@ -1,4 +1,4 @@
-<a href="" >Live page</a>
+<a href="https://pete-fowler.github.io/weather/">Live page</a>
 
 This is a basic weather app done as an exercise to practice writing asynchronous code. I started out
 using recommended openweathermap.org API, and then switched to the nws.gov API once I discovered you
