@@ -1,6 +1,6 @@
 <a href="https://pete-fowler.github.io/weather/">Live page</a>
 
-This is a basic weather app done as an exercise to practice writing asynchronous code.
+This is a basic weather app done with some asynchronous code to access an external API.
 
 I am favoring the async / await syntax over the regular promise syntax, as it seems a bit easier to
 understand, and it is newer. However, I realize the importance of understanding promises since 
