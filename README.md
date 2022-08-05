@@ -1,10 +1,6 @@
 <a href="https://pete-fowler.github.io/weather/">Live page</a>
 
-This is a basic weather app done as an exercise to practice writing asynchronous code. I started out
-using recommended openweathermap.org API, and then switched to the nws.gov API once I discovered you
-cannot get a real daily forecast from the first option without a paid subscription. I quickly
-realized the nws.gov API is far less counterintuitive and its documentation poorly written, but was
-able to get things working.
+This is a basic weather app done as an exercise to practice writing asynchronous code.
 
 I am favoring the async / await syntax over the regular promise syntax, as it seems a bit easier to
 understand, and it is newer. However, I realize the importance of understanding promises since 
@@ -15,11 +11,12 @@ It was difficult to figure out how to chain together the getLatLon() geocoding f
 coordinates, followed by the getForecast() and getWeather functions, and then asynchronously
 following all that with another function to add the data to the DOM. It ended up looking like this:
 
-Unix time is number of seconds from epoch, whereas the javascript timestamp is number of
-milliseconds, to unix time * 1000 = JS timestamp time.
-
   getLatLon(query).then((data) => {
       getForecast(data);
       getWeather(data)
       .then(() => displayWeather());
     }); 
+   
+Due to the nature of the API data, I discovered Unix time is number of seconds from epoch, whereas the 
+javascript timestamp is number of milliseconds since epoch, so converting unix time to JS time requires 
+multiplying by 1,000.
