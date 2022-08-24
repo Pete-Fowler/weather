@@ -18,5 +18,5 @@ following all that with another function to add the data to the DOM. It ended up
     }); 
    
 Due to the nature of the API data, I discovered Unix time is number of seconds from epoch, whereas the 
-javascript timestamp is number of milliseconds since epoch, so converting unix time to JS time requires 
+JavaScript timestamp is number of milliseconds since epoch, so converting unix time to JS time requires 
 multiplying by 1,000.
